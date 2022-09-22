@@ -86,37 +86,25 @@ class NewsStatusLike(APIView):
             return Response(data, status=status.HTTP_201_CREATED)
 
 
-# class CommentStatusLike(APIView):
-#     def get(self, request, news_id, comment_id, status_slug):
-#         comment = get_object_or_404(Comment, id=comment_id)
-#         comment_status = get_object_or_404(Status, slug=status_slug)
-#         news = get_object_or_404(News, id=news_id)
-#         try:
-#             like_dislike = CommentStatus.objects.create(comment=comment, author=request.user.author, status=news_status)
-#         except IntegrityError:
-#             like_dislike = CommentStatus.objects.get(comment=comment, author=request.user.author)
-#             if like_dislike.status == comment_status:
-#                 like_dislike.status = None
-#             else:
-#                 like_dislike.status == comment_status
-#             like_dislike.save()
-#             data = {"error": "You already added status"}
-#             return Response(data, status=status.HTTP_200_OK)
-#         else:
-#             data = {"message": "Status added"}
-#             return Response(data, status=status.HTTP_201_CREATED)
-#
-# class CommentStatusLike(APIView):
-#     def get_queryset(self):
-#         news_queryset = News.objects.all()
-#         comment_id = self.request.query_params.get('comment_id')
-#
-#
-        # comment_queryset = Comment.objects.filter(user__username=user)
+class CommentStatusLike(APIView):
+    def get(self, request, news_id, comment_id, status_slug):
+        comment = get_object_or_404(Comment, id=comment_id)
+        comment_status = get_object_or_404(Status, slug=status_slug)
+        try:
+            like_dislike = CommentStatus.objects.create(comment=comment, author=request.user.author, status=comment_status)
+        except IntegrityError:
+            like_dislike = CommentStatus.objects.get(comment=comment, author=request.user.author)
+            if like_dislike.status == comment_status:
+                like_dislike.status = None
+            else:
+                like_dislike.status == comment_status
+            like_dislike.save()
+            data = {"error": "You already added status"}
+            return Response(data, status=status.HTTP_200_OK)
+        else:
+            data = {"message": "Status added"}
+            return Response(data, status=status.HTTP_201_CREATED)
 
 
-        # if comment_id:
-        #
-        # search = self.request.query_params.get('search')
 
 

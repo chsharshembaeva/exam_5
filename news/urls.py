@@ -11,6 +11,6 @@ urlpatterns = [
     path('statuses/', views.StatusListCreateAPIView.as_view()),
     path('statuses/<int:pk>/', views.StatusRetrieveUpdateDestroyAPIView.as_view()),
     path('news/<int:news_id>/<str:status_slug>/', views.NewsStatusLike.as_view()),
-    # path('news/<int:news_id>/comments/<int:comment_id>/<str:status_slug>/', views.CommentStatusLike.as_view()),
+    path('news/<int:news_id>/comments/<int:comment_id>/<str:status_slug>/', views.CommentStatusLike.as_view()),
 ]
 
