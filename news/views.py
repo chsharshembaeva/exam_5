@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, get_object_or_404
 from rest_framework.authentication import SessionAuthentication, TokenAuthentication
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 
 from .permissions import NewsPermission, CommentPermission, StatusPermission
 
@@ -67,6 +68,9 @@ class StatusRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
 
 
 class NewsStatusLike(APIView):
+    authentication_classes = [SessionAuthentication, TokenAuthentication]
+    permission_classes = [IsAuthenticated, ]
+
     def get(self, request, news_id, status_slug):
         news = get_object_or_404(News, id=news_id)
         news_status = get_object_or_404(Status, slug=status_slug)
@@ -87,6 +91,9 @@ class NewsStatusLike(APIView):
 
 
 class CommentStatusLike(APIView):
+    authentication_classes = [SessionAuthentication, TokenAuthentication]
+    permission_classes = [IsAuthenticated, ]
+
     def get(self, request, news_id, comment_id, status_slug):
         comment = get_object_or_404(Comment, id=comment_id)
         comment_status = get_object_or_404(Status, slug=status_slug)

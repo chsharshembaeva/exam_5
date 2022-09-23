@@ -4,6 +4,7 @@ from .models import News, Comment, Status, NewsStatus, CommentStatus
 
 
 class NewsSerializer(serializers.ModelSerializer):
+    get_status = serializers.ReadOnlyField()
 
     class Meta:
         model = News
@@ -12,6 +13,7 @@ class NewsSerializer(serializers.ModelSerializer):
 
 
 class CommentSerializer(serializers.ModelSerializer):
+    get_status = serializers.ReadOnlyField()
 
     class Meta:
         model = Comment
